@@ -78,6 +78,7 @@ func main() {
 	notifySubscribers := flag.Bool("notify", true, "notify channel subscribers of new video. Specify '-notify:=false' to disable.")
 	debug := flag.Bool("debug", false, "turn on verbose log output")
 	sendFileName := flag.Bool("sendFilename", true, "send original file name to YouTube")
+	embeddable := flag.Bool("embeddable", true, "make video embeddable on other sites. Specify '-embeddable=false' to disable.")
 
 	flag.Parse()
 	config := yt.Config{
@@ -100,6 +101,7 @@ func main() {
 		Chunksize:         *chunksize,
 		NotifySubscribers: *notifySubscribers,
 		SendFileName:      *sendFileName,
+		Embeddable:        *embeddable,
 		PlaylistIDs:       playlistIDs,
 		RecordingDate:     recordingDate,
 	}

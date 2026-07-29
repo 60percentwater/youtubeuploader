@@ -60,6 +60,7 @@ type Config struct {
 	Chunksize         int
 	NotifySubscribers bool
 	SendFileName      bool
+	Embeddable        bool
 	RecordingDate     Date
 }
 
@@ -80,7 +81,7 @@ func LoadVideoMeta(config Config) (*VideoMeta, *youtube.Video, error) {
 	// Force send some boolean values.
 	// Without this, defaults on the Youtube side are used which can have unexpected results.
 	// See: https://github.com/porjo/youtubeuploader/issues/132
-	video.Status.ForceSendFields = []string{"SelfDeclaredMadeForKids", "ContainsSyntheticMedia"}
+	video.Status.ForceSendFields = []string{"SelfDeclaredMadeForKids", "ContainsSyntheticMedia", "Embeddable"}
 
 	// attempt to load from meta JSON, otherwise use values specified from command line flags
 	if config.MetaJSON != "" {
@@ -180,6 +181,8 @@ func LoadVideoMeta(config Config) (*VideoMeta, *youtube.Video, error) {
 	if video.Snippet.DefaultAudioLanguage == "" && config.Language != "" {
 		video.Snippet.DefaultAudioLanguage = config.Language
 	}
+
+	video.Status.Embeddable = config.Embeddable
 
 	if video.RecordingDetails.RecordingDate == "" && !config.RecordingDate.IsZero() {
 		video.RecordingDetails.RecordingDate = config.RecordingDate.UTC().Format(ytDateLayout)

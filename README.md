@@ -75,6 +75,8 @@ Usage:
         turn on verbose log output
   -description string
         video description (default "uploaded by youtubeuploader")
+  -embeddable
+        make video embeddable on other sites. Specify '-embeddable=false' to disable. (default true)
   -filename string
         video filename. Can be a URL. Read from stdin with '-'
   -language string
